@@ -1,23 +1,18 @@
-import React, { useMemo } from 'react';
-import { Product } from '../interfaces/Product';
+import React from 'react';
+import { FormattedProduct } from '../interfaces/FormattedProducts';
 import ProductItem from './ProductItem';
 
 interface Props {
-  results: Product[];
+  results: FormattedProduct[];
   onAddToWishList: (id: number) => void;
+  totalPrice: number;
 }
 
-const SearchResults = ({ results, onAddToWishList }: Props) => {
-  const calcTotal = () => {
-    return results.reduce((total, product) => total + product.price, 0);
-  };
-
-  const totalPrice = useMemo(calcTotal, [results]);
-
+const SearchResults = ({ results, onAddToWishList, totalPrice }: Props) => {
   return (
     <div>
       <h1>{totalPrice}</h1>
-      {results.map((product) => (
+      {results?.map((product) => (
         <ProductItem
           key={product.id}
           product={product}
